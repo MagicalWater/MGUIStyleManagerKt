@@ -1,2 +1,18 @@
 # MGUIStyleManagerKt
-依照給view設置tag的方式關聯ui設置, 達到快速變換ui的效果
+[ ![Download](https://api.bintray.com/packages/water/mgbase/mg-ui-style-manager-kt/images/download.svg) ](https://bintray.com/water/mgbase/mg-ui-style-manager-kt/_latestVersion) 
+![](https://img.shields.io/badge/language-kotlin-orange.svg)  
+
+依照給view設置tag的方式關聯ui設置, 達到快速變換ui的效果  
+
+具體配置 config 請看  
+[style配置範例](https://github.com/MagicalWater/MGUIStyleManagerKt/blob/master/MGUIStyleManagerKtDemo/mg-ui-style-manager-kt/src/main/res/raw/style_config_demo.txt)  
+[style配置說明](https://github.com/MagicalWater/MGUIStyleManagerKt/blob/master/MGUIStyleManagerKtDemo/mg-ui-style-manager-kt/src/main/res/raw/style_config_description.txt)  
+
+## 版本  
+0.0.1 - 專案初次提交  
+
+## 添加依賴  
+
+### Gradle  
+compile 'org.mgwater.mgbase:mg-ui-style-manager-kt:{version}'  
+( 其中 {version} 請自行替入此版號 [ [ ![Download](https://api.bintray.com/packages/water/mgbase/mg-ui-style-manager-kt/images/download.svg) ](https://bintray.com/water/mgbase/mg-ui-style-manager-kt/_latestVersion) )

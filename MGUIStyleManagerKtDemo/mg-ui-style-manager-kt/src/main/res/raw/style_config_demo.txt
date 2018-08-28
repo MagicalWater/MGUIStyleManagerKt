@@ -1,0 +1,84 @@
+{
+  "version": "0.0.2",
+  "rootFolder": "style_demo",
+  "ui": {
+    "topPage": {
+      "LaunchAty": {
+        "LaunchLogo": {
+          "background": {
+            "color": "@color/gradient_blue"
+          },
+          "content": {
+            "src": "@string/ic_demo"
+          },
+          "text": {
+            "color": "#000000"
+          }
+        }
+      }
+    },
+    "list": {
+      "Menu": {
+        "default": {
+          "Title": {
+            "text": {
+              "color": "@color/blue"
+            }
+          }
+        }
+      },
+      "HomeListShortcut": {
+        "default": {
+          "HomeDeposit": {
+            "content": {
+              "src": "@string/ic_demo2"
+            },
+            "text": {
+              "color": "@color/purple"
+            }
+          },
+          "HomeTransferOut": {
+            "content": {
+              "src": "@string/ic_demo2"
+            },
+            "text": {
+              "color": "@color/purple"
+            }
+          },
+          "HomeTransfer": {
+            "content": {
+              "src": "@string/ic_demo2"
+            },
+            "text": {
+              "color": "@color/purple"
+            }
+          },
+          "HomePromotion": {
+            "content": {
+              "src": "@string/ic_demo2"
+            },
+            "text": {
+              "color": "@color/purple"
+            }
+          }
+        }
+      }
+    }
+  },
+  "disableLoopChild": [
+    "MainContainer",
+    "MenuContainer"
+  ],
+  "globalRes": {
+    "string": {
+      "ic_demo": "ic_demo.png",
+      "ic_demo2": "ic_demo2.png"
+    },
+    "color": {
+      "white": "#ffffff",
+      "purple": "#cc88aa",
+      "blue": "#6699ff",
+      "gradient_blue": "#6699ff~#4488cc"
+    }
+  }
+}

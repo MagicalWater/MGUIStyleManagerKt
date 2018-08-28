@@ -1,0 +1,65 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+
+
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "0.0.1"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:appcompat-v7:28.0.0-alpha3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.anko:anko:$anko_version"
+
+    implementation 'org.mgwater.mgbase:mg-section-adapter-kt:0.0.5'
+    implementation 'org.mgwater.mgbase:mg-utils-kt:0.1.4'
+}
+
+/**以下是bintray上傳相關資訊*/
+apply plugin: 'com.novoda.bintray-release'
+
+//項目主頁
+def siteUrl = 'https://github.com/MagicalWater/MGUIStyleManagerKt'
+
+//bintray上傳參考: https://blog.csdn.net/qq_23179075/article/details/71123452
+publish{
+    repoName = 'mgbase'//遠程倉庫名稱, 默認上傳到maven
+    userOrg = 'water'//bintray.com用戶名
+    groupId = 'org.mgwater.mgbase'//jcenter上的路徑
+    artifactId = 'mg-ui-style-manager-kt'//項目名稱
+    publishVersion = '0.0.1'//版本
+    desc = '依照給view設置tag的方式關聯ui設置, 達到快速變換ui的效果'//描述，不重要
+    website = siteUrl//項目主頁
+}
+
+tasks.withType(Javadoc) {//防止編碼問題
+    excludes = ['**/*.kt'] // < ---- Exclude all kotlin files from javadoc file.
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+/**以上是bintray上傳相關資訊*/

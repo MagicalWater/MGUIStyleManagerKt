@@ -1,0 +1,1 @@
+include ':app', ':mg-ui-style-manager-kt'
