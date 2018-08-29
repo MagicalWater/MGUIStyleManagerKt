@@ -28,6 +28,7 @@
 元件整體結構分成兩種
 1. Activity/Fragment
 2. 列表view(RecylcerView/ListView)
+3. 單獨元件 Single Widget
 
 首先來看第1種
 1. Activity/Fragment
@@ -69,6 +70,20 @@
                 ...元件基礎結構..
             }
         }
+    }
+}
+
+最後第3種
+3. 單獨元件 Single Widget
+
+特殊需求, 再程式裡面單獨設置某個元件的style
+目前應用於圖片做切換時, 依照更換tag再呼叫 MGUIStyleManager.settingStyleForSingle 做設置
+"single": {
+    "HeaderMenu": {
+        ...元件基礎結構..
+    },
+    "HeaderBack": {
+        ...元件基礎結構..
     }
 }
 

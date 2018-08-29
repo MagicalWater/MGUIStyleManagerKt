@@ -103,9 +103,14 @@ class MGUIStyleManager private constructor() {
         }
     }
 
+    //設定某個單獨元件的style
+    fun settingStyleForSingle(view: View) {
+        searchAndSettingStyle(view, mConfig.ui.single)
+    }
+
     //搜索所有的view以及子view, 並且設置style
     private fun loopForAllView(style: APIStyleWidgetUI, view: View) {
-        settingStyle(style, view)
+        searchAndSettingStyle(view, style)
         //RecyclerView 跟 ListView 不以此種方式
         //若tag包含在 disableLoopChild 的 view 也不往下搜尋child
         var isDisableLoopChild: Boolean =
@@ -122,15 +127,19 @@ class MGUIStyleManager private constructor() {
     }
 
     //設置style, 搜索出相對應的style之後呼叫回調進行設置的行為
-    private fun settingStyle(style: APIStyleWidgetUI, view: View) {
+    private fun searchAndSettingStyle(view: View, style: APIStyleWidgetUI) {
         val tag = view.tag ?: return
         if (tag !is String) return
         val styleWidget = style[tag] ?: return
+        settingStyle(view, styleWidget)
+    }
 
-        generatorBackground(view, styleWidget)
+    //最終設置style, 除了backgroun直接設置之外, 其餘外拋
+    private fun settingStyle(view: View, attr: APIStyleConfig.WidgetAttr) {
+        generatorBackground(view, attr)
         viewStyleSettingDelegate?.styleSetting(
                 view,
-                generatorStyle(view, styleWidget)
+                generatorStyle(view, attr)
         )
     }
 

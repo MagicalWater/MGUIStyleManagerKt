@@ -7,7 +7,8 @@ data class APIStyleConfig(var version: String,
                           var ui: StyleUI) {
 
     data class StyleUI(var topPage: APIStylePageUI,
-                       var list: APIStyleListUI)
+                       var list: APIStyleListUI,
+                       var single: APIStyleWidgetUI)
 
     data class WidgetAttr(
             var background: StyleBackground?,
