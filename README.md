@@ -9,6 +9,7 @@
 [style配置說明](https://github.com/MagicalWater/MGUIStyleManagerKt/blob/master/MGUIStyleManagerKtDemo/mg-ui-style-manager-kt/src/main/res/raw/style_config_description.txt)  
 
 ## 版本  
+0.0.3 - 同步loop設置view會出現設置失敗的不確定性, 因此改為異步搜索, 再跳回主線程設置  
 0.0.2 - 加入新結點, ui/single, 方便程式內單獨設置某個元件的style  
 0.0.1 - 專案初次提交  
 

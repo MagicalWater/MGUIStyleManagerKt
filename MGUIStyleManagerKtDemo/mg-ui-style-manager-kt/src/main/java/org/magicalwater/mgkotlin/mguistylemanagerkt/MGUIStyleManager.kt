@@ -8,8 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
-import org.jetbrains.anko.backgroundColor
-import org.jetbrains.anko.backgroundDrawable
+import org.jetbrains.anko.*
 import org.magicalwater.mgkotlin.mguistylemanagerkt.deserialization.APIStyleConfig
 import org.magicalwater.mgkotlin.mguistylemanagerkt.deserialization.APIStyleItemUI
 import org.magicalwater.mgkotlin.mguistylemanagerkt.deserialization.APIStyleWidgetUI
@@ -80,7 +79,9 @@ class MGUIStyleManager private constructor() {
 
     fun injectStyleForTopPage(pageTag: String, view: View) {
         val uiStyle = mConfig.ui.topPage[pageTag] ?: return
-        loopForAllView(uiStyle, view)
+        doAsync {
+            loopForAllView(this, view, uiStyle)
+        }
     }
 
     //adapter呼叫對應的style
@@ -96,21 +97,25 @@ class MGUIStyleManager private constructor() {
     //設置列表的某個屬性
     fun settingStyleForListItem(index: Int, style: APIStyleItemUI?, view: View) {
         style ?: return
-        val indexText = index.toString()
-        when {
-            style.containsKey(indexText) -> loopForAllView(style[indexText]!!, view)
-            style.containsKey(mListDefaultIndex) -> loopForAllView(style[mListDefaultIndex]!!, view)
+        doAsync {
+            val indexText = index.toString()
+            when {
+                style.containsKey(indexText) -> loopForAllView(this, view, style[indexText]!!)
+                style.containsKey(mListDefaultIndex) -> loopForAllView(this, view, style[mListDefaultIndex]!!)
+            }
         }
     }
 
     //設定某個單獨元件的style
     fun settingStyleForSingle(view: View) {
-        searchAndSettingStyle(view, mConfig.ui.single)
+        doAsync {
+            searchAndSettingStyle(this, view, mConfig.ui.single)
+        }
     }
 
     //搜索所有的view以及子view, 並且設置style
-    private fun loopForAllView(style: APIStyleWidgetUI, view: View) {
-        searchAndSettingStyle(view, style)
+    private fun loopForAllView(context: AnkoAsyncContext<MGUIStyleManager>, view: View, style: APIStyleWidgetUI) {
+        searchAndSettingStyle(context, view, style)
         //RecyclerView 跟 ListView 不以此種方式
         //若tag包含在 disableLoopChild 的 view 也不往下搜尋child
         var isDisableLoopChild: Boolean =
@@ -121,26 +126,28 @@ class MGUIStyleManager private constructor() {
         }
         if (view is ViewGroup && (view !is RecyclerView || view !is ListView || !isDisableLoopChild)) {
             (0 until view.childCount).forEach {
-                loopForAllView(style, view.getChildAt(it))
+                loopForAllView(context, view.getChildAt(it), style)
             }
         }
     }
 
     //設置style, 搜索出相對應的style之後呼叫回調進行設置的行為
-    private fun searchAndSettingStyle(view: View, style: APIStyleWidgetUI) {
+    private fun searchAndSettingStyle(context: AnkoAsyncContext<MGUIStyleManager>, view: View, style: APIStyleWidgetUI) {
         val tag = view.tag ?: return
         if (tag !is String) return
         val styleWidget = style[tag] ?: return
-        settingStyle(view, styleWidget)
+        settingStyle(context, view, styleWidget)
     }
 
     //最終設置style, 除了backgroun直接設置之外, 其餘外拋
-    private fun settingStyle(view: View, attr: APIStyleConfig.WidgetAttr) {
-        generatorBackground(view, attr)
-        viewStyleSettingDelegate?.styleSetting(
-                view,
-                generatorStyle(view, attr)
-        )
+    private fun settingStyle(context: AnkoAsyncContext<MGUIStyleManager>, view: View, attr: APIStyleConfig.WidgetAttr) {
+        context.uiThread {
+            generatorBackground(view, attr)
+            viewStyleSettingDelegate?.styleSetting(
+                    view,
+                    generatorStyle(view, attr)
+            )
+        }
     }
 
     //生成 Style class 給外部進行設置
