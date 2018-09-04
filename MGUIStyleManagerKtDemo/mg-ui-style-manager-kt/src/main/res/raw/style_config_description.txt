@@ -1,0 +1,137 @@
+此為 style config 的說明文件
+
+此config配置最好搭配 MGSectionAdapterKt 使用
+
+所有的元件基礎結構都是如下
+@background: 設置元件的background, 此設置會直接在 MGUIStyleManager 裡面設置結束, 只要設置好view的tag與配置文件對應即可
+@content: 供給元件設置除了背景以外的圖片或者顏色, 需要在 MGUIStyleManager.viewStyleSettingDelegate 設置外部回調接口
+@text: 同上, 給元件主要是文字方面的設置, 目前主要用於文字顏色, 也需要設置外部回調接口
+
+"color": 此顏色節點較為特別, 可接受單色與雙色, 設置方式為
+    單色 - "#000000"
+    雙色 - "#000000~#ffffff"
+{
+    "background": {
+        "src": "",
+        "color": "",
+    },
+    "content": {
+        "src": "",
+        "color": ""
+    },
+    "text": {
+        "color": ""
+    }
+}
+
+接著是 ui 的整體結構, 讓ui與配置文件關聯的特點在於view的tag, 幫所有view設置tag方便讓 MGUIStyleConfigManager 匹配對應的配置
+元件整體結構分成兩種
+1. Activity/Fragment
+2. 列表view(RecylcerView/ListView)
+3. 單獨元件 Single Widget
+
+首先來看第1種
+1. Activity/Fragment
+
+結構如下, 最外層是topPage, 此為不可更動的節點
+假設現在導覽頁Activity的Tag叫做 LaunchAty, 那麼在 topPage底下便會有一個 LaunchAty 的節點
+接著再下去一層, 便是所有需要設置style的view, 一樣以 view 的 tag為節點
+我們看到 LaunchAty 底下有一個 LaunchLogo, 那便是我們將要設置 style 的 view 的 tag
+"topPage": {
+    "LaunchAty": {
+        "LaunchLogo": {
+            ...元件基礎結構..
+        }
+    }
+}
+
+接著看第2種
+2. 列表view(RecylcerView/ListView)
+
+由於列表有復用的問題, 因此無法像第一種那樣的格式設置style,
+且每一層的style可能不一樣, 因此多出了一層
+例如再 "Menu" 底下 的
+"default" "0"
+
+首先說 Menu, 這是給 adapter 的tag, 因此無法直接在xml設置tag進行綁定
+需要再adapter內部進行綁定
+
+接著底下的 "0" 則是針對 list 的位置, 若list再進行style綁定找不到對應於自己 index 的tag的話
+則是取預設值 "default"
+"list": {
+    "Menu": {
+        "default": {
+            "Title": {
+                ...元件基礎結構..
+            }
+        },
+        "0": {
+            "Title": {
+                ...元件基礎結構..
+            }
+        }
+    }
+}
+
+最後第3種
+3. 單獨元件 Single Widget
+
+特殊需求, 再程式裡面單獨設置某個元件的style
+目前應用於圖片做切換時, 依照更換tag再呼叫 MGUIStyleManager.settingStyleForSingle 做設置
+"single": {
+    "HeaderMenu": {
+        ...元件基礎結構..
+    },
+    "HeaderBack": {
+        ...元件基礎結構..
+    }
+}
+
+
+剩下的一次說
+@version -
+    style配置表的版號, 此主要影響到圖片, style.zip 的更新
+    若是配置表版號較新, 則會解壓縮style.zip進入手機內部儲存區, 裡面存放了所有需要對應的圖片
+    解壓縮完畢再設置此版號進入 SharedPreference
+
+@rootFolder -
+    裝載圖片style的跟目錄名稱, 用來對應加載圖片時的跟目錄名稱
+
+@disableLoopChild -
+    再搜索所有view的tag以及底下子view的tag進行style配置時, 當view的tag出現在此處, 則不往下搜索子view
+    此處主要是為了 fragment, 因為將fragment視為與activity同等級的 "topPage" 節點底下的tag,
+    因此防止設置activity搜索所有view時順便搜索了fragment的style, fragment的style要再fragment裡面進行搜索
+
+@golbalRes -
+    放入各種對應文字的全局配置, 一樣都是對應文字, 但是多一層分類會比較好管理
+    沒有固定的名稱, "string" 與 "color" 只是分類的名稱
+    假如現在想要某個節點的值是 string 底下的 ic_demo, 則調用方式為
+    @string/ic_demo
+
+    若是需要自訂, 則創建一個一樣結構的, 例如
+    "abc": {
+        "en": "aaa"
+    }
+    那麼調用的方式即是
+    @abc/en
+
+{
+  "version": "0.0.2",
+  "rootFolder": "style_demo",
+  "disableLoopChild": [
+    "MainContainer",
+    "MenuContainer"
+  ],
+  "globalRes": {
+    "string": {
+      "ic_demo": "ic_demo.png",
+      "ic_demo2": "ic_demo2.png"
+    },
+    "color": {
+      "white": "#ffffff",
+      "purple": "#cc88aa",
+      "blue": "#6699ff",
+      "gradient_blue": "#6699ff~#4488cc"
+    }
+  }
+}

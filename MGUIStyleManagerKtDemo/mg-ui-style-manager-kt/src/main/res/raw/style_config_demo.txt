@@ -1,0 +1,185 @@
+{
+  "version": "0.0.3",
+  "rootFolder": "style",
+  "ui": {
+    "topPage": {
+      "LaunchAty": {
+        "LaunchLogo": {
+          "content": {
+            "src": "@string/ic_demo"
+          },
+          "text": {
+            "color": "#000000"
+          }
+        }
+      },
+      "MenuFgt": {
+        "AccInfoDeposit": {
+          "content": {
+            "src": "@string/ic_deposit"
+          }
+        },
+        "AccInfoTransfer": {
+          "content": {
+            "src": "@string/ic_transfer_in"
+          }
+        },
+        "AccInfoTransferOut": {
+          "content": {
+            "src": "@string/ic_transfer_out"
+          }
+        }
+      },
+      "MainAty": {
+        "HeaderMenu": {
+          "content": {
+            "src": "@string/ic_menu"
+          }
+        },
+        "HeaderBack": {
+          "content": {
+            "src": "@string/ic_back"
+          }
+        },
+        "HeaderLogo": {
+          "content": {
+            "src": "@string/ic_logo"
+          }
+        }
+      }
+    },
+    "single": {
+      "HeaderMenu": {
+        "content": {
+          "src": "@string/ic_menu"
+        }
+      },
+      "HeaderBack": {
+        "content": {
+          "src": "@string/ic_back"
+        }
+      }
+    },
+    "list": {
+      "Menu": {
+        "0": {
+          "MenuIcon": {
+            "content": {
+              "src": "@string/ic_news"
+            }
+          }
+        },
+        "1": {
+          "MenuIcon": {
+            "content": {
+              "src": "@string/ic_promotion"
+            }
+          }
+        },
+        "2": {
+          "MenuIcon": {
+            "content": {
+              "src": "@string/ic_deposit_history"
+            }
+          }
+        },
+        "3": {
+          "MenuIcon": {
+            "content": {
+              "src": "@string/ic_transfer_in_history"
+            }
+          }
+        },
+        "4": {
+          "MenuIcon": {
+            "content": {
+              "src": "@string/ic_transfer_out_history"
+            }
+          }
+        },
+        "5": {
+          "MenuIcon": {
+            "content": {
+              "src": "@string/ic_customer"
+            }
+          }
+        },
+        "default": {
+          "MenuTitle": {
+            "text": {
+              "color": "@color/blue"
+            }
+          },
+          "MenuIcon": {
+            "content": {
+              "src": "@string/ic_news"
+            }
+          }
+        }
+      },
+      "HomeListShortcut": {
+        "default": {
+          "HomeDeposit": {
+            "content": {
+              "src": "@string/ic_deposit"
+            },
+            "text": {
+              "color": "@color/purple"
+            }
+          },
+          "HomeTransferOut": {
+            "content": {
+              "src": "@string/ic_transfer_out"
+            },
+            "text": {
+              "color": "@color/purple"
+            }
+          },
+          "HomeTransfer": {
+            "content": {
+              "src": "@string/ic_transfer_in"
+            },
+            "text": {
+              "color": "@color/purple"
+            }
+          },
+          "HomePromotion": {
+            "content": {
+              "src": "@string/ic_promotion"
+            },
+            "text": {
+              "color": "@color/purple"
+            }
+          }
+        }
+      }
+    }
+  },
+  "disableLoopChild": [
+    "MainContainer",
+    "MenuContainer"
+  ],
+  "globalRes": {
+    "string": {
+      "ic_demo": "ic_demo.png",
+      "ic_demo2": "ic_demo2.png",
+      "ic_deposit_history": "ic_deposit_history.png",
+      "ic_transfer_in_history": "ic_transfer_in_history.png",
+      "ic_transfer_out_history": "ic_transfer_out_history.png",
+      "ic_customer": "ic_customer.png",
+      "ic_promotion": "ic_promotion.png",
+      "ic_news": "ic_news.png",
+      "ic_deposit": "ic_deposit.png",
+      "ic_transfer_in": "ic_transfer_in.png",
+      "ic_transfer_out": "ic_transfer_out.png",
+      "ic_menu": "ic_menu.png",
+      "ic_back": "ic_back.png",
+      "ic_logo": "ic_logo.png"
+    },
+    "color": {
+      "white": "#ffffff",
+      "purple": "#cc88aa",
+      "blue": "#6699ff"
+    }
+  }
+}
